@@ -83,6 +83,8 @@ public class RockPaperScissors {
                 //once user input is valid  initialize user's choice and randomize program choice
                 chosenOne = Integer.parseInt(temp);
                 chosenTwo = 1 + randomizer.nextInt(3);
+                
+                whoWon(chosenOne, chosenTwo, gesture);
             }
             
             //ask user if they want to play again
@@ -94,6 +96,61 @@ public class RockPaperScissors {
                 play = false;
                 System.out.println("Thanks for playing!");
             }
+        }
+    }
+    
+//    Rock-Paper-Scissors comparison Logic
+//            Rock(1), Paper(2), Scissors(3)
+//            
+//            User Choice : Program Choice
+//            
+//                Rock(1)
+//                    1:1 -> Tie
+//                    1:2 -> User Loss
+//                    1:3 -> User Win
+//                    
+//                Paper(2)
+//                    2:1 -> User Win
+//                    2:2 -> Tie
+//                    2:3 -> User Loss
+//            
+//                Scissors(3)
+//                    3:1 -> User Loss
+//                    3:2 -> User Win
+//                    3:3 -> Tie
+//            
+//            |1:1, 2:2, 3:3| -> User Choice = Program Choice -> Tie
+//            
+//            |2:1, 3:2| ->  User Choice-1 = Program Choice -> User Win
+//                    else |1:2, 2:3| -> User Choice+1 = Program Choice -> User Loss
+//            
+//            |3:1, 1:3| -> User Choice-2 = Program Choice -> User Loss
+//                          User Choice+2 = Program Choice -> User Win
+    
+    //Function to compare User and Program Choices and determine who wins the round, also prints Program Choice's gesture
+    public static void whoWon(int cOne, int cTwo, String[] gest){
+        //|1:1, 2:2, 3:3| -> User Choice = Program Choice -> Tie
+        if(cOne == cTwo){
+            System.out.println(gest[cTwo-1] + " It's a Tie!");
+        }
+        //|1:2, 2:3| -> User Choice+1 = Program Choice -> User Loss
+        else if(cOne+1 == cTwo){
+            System.out.println(gest[cTwo-1] + " You Loss!");
+        }
+        //|2:1, 3:2| ->  User Choice-1 = Program Choice -> User Win
+        else if(cOne-1 == cTwo){
+            System.out.println(gest[cTwo-1] + " You Win!");
+        }
+        //|1:3| User Choice+2 = Program Choice -> User Win
+        //Since |2:1, 3:2| ->  User Choice-1 = Program Choice -> User Win has already been executed
+        //Can be simplified to User Choice < Program Choice -> User Win
+        else if (cOne < cTwo){
+            System.out.println(gest[cTwo-1] + " You Win");
+        }
+        //|3:1| User Choice-2 = Program Choice -> User Loss
+        //Last case scenerio therefore can be simplied to else User Loss
+        else{
+            System.out.println(gest[cTwo-1] + " You Loss!");
         }
     }
 }
