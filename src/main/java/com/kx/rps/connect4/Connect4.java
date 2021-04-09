@@ -52,6 +52,11 @@ public class Connect4 {
                         System.out.println();
                     }
 
+                    someoneWin = check(i, userPick, board, chip);
+                    if(someoneWin){
+                        break;
+                    }
+                    
                     if(chip.equals(" X ")){
                         player = playerTwo;
                         chip = " O ";
@@ -64,5 +69,105 @@ public class Connect4 {
                 }
             }
         }
+    }
+    
+    //checks if there is four in a row
+    public static boolean check(int x, int y, String[][] b, String c){
+        int track = 0;
+        boolean didWin = false;
+        
+        //down 
+        for (int verticle = x+1; verticle < 6; verticle++) {
+            if(b[verticle][y] == c){
+                track++;               
+                if(track == 3){
+                    didWin = true;
+                }
+            }
+            else{
+                break;
+            }
+        }
+        track = 0;
+        //upleft
+        for (int verticle = x-1, horizontal = y-1; verticle >= 0 && horizontal >= 0; verticle--, horizontal--) {
+            if(b[verticle][horizontal] == c){
+                track++;
+                if(track == 3){
+                    didWin = true;
+                }
+            }
+            else
+                break;
+        }
+        
+        //downright
+        for (int verticle = x+1, horizontal = y+1; verticle < 6 && horizontal < 7; verticle++, horizontal++) {
+            if(b[verticle][horizontal] == c){
+                track++;
+                if(track == 3){
+                    didWin = true;
+                }
+            }
+            else{
+                break;
+            }
+        }
+        track = 0;
+        
+        //downleft
+        for (int verticle = x+1, horizontal = y-1; verticle < 6 && horizontal >= 0; verticle++, horizontal--) {
+            if(b[verticle][horizontal] == c){
+                track++;
+                if(track == 3){
+                    didWin = true;
+                }
+            }
+            else
+                break;
+        }
+        
+        //upright
+        for (int verticle = x-1, horizontal = y+1; verticle >= 0 && horizontal < 7; verticle--, horizontal++) {
+            if(b[verticle][horizontal] == c){
+                track++;
+                if(track == 3){
+                    didWin = true;
+                }
+            }
+            else{
+                break;
+            }
+        }
+        track = 0;
+        
+        
+        //left
+        for (int horizontal = y-1; horizontal >= 0; horizontal--) {
+            if(b[x][horizontal] == c){
+                track++;
+                if(track == 3){
+                    didWin = true;
+                }
+            }
+            else
+                break;
+        }
+        
+        //right
+        for (int horizontal = y+1; horizontal < 7; horizontal++) {
+            if(b[x][horizontal] == c){
+                track++;
+                if(track == 3){
+                    didWin = true;
+                }
+            }
+            else{
+                break;
+            }
+        }
+        track = 0;
+        
+        return didWin;
     }
 }
