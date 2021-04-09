@@ -5,6 +5,9 @@
  */
 package com.kx.rps.connect4;
 
+import java.util.Random;
+import java.util.Scanner;
+
 /**
  *
  * @author khuxi
