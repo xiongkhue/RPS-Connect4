@@ -18,14 +18,7 @@ public class RockPaperScissors {
     }
     
     public static void playGame(){
-<<<<<<< HEAD
-        //variazbles needed for keep tracking, and decisions
-        int rounds, wins, ties, loss, chosenOne, chosenTwo;
-        String playAgain, outCome, temp;
-        boolean play = true;
-    }
-    
-=======
+
     //variazbles needed for keep tracking, and decisions
     int wins, ties, loss, chosenOne, chosenTwo;
     String outCome, temp;
@@ -196,5 +189,4 @@ public class RockPaperScissors {
             return "lost";
         }
     }
->>>>>>> 762cc32... Print results for wins, losses, and ties from each round to determine overall winner. Put in place some checks for user input
 }
