@@ -69,8 +69,14 @@ public class RockPaperScissors {
             loss = 0;
             ties = 0;
             
+            //checks for valid input for rounds minimum of 1 and max of 10
+            if( rounds > 10 || rounds < 1){
+                System.out.println("Ack! only 1-10 rounds allowed");
+                System.exit(0);
+            }
             //for each round
             for(int i = 0; i < rounds; i++){
+                
                 System.out.println("Rock(1), Paper(2), Scissors(3), GO! [1-3]");
                 temp = inputReader.nextLine();
                 
@@ -84,12 +90,39 @@ public class RockPaperScissors {
                 chosenOne = Integer.parseInt(temp);
                 chosenTwo = 1 + randomizer.nextInt(3);
                 
-                whoWon(chosenOne, chosenTwo, gesture);
+                //keeps track of wins, ties, and losses based on who won each round
+                outCome = whoWon(chosenOne, chosenTwo, gesture);
+                if(outCome == "tie"){
+                    ties++;
+                }
+                else if(outCome == "win"){
+                    wins++;
+                }
+                else
+                    loss++;
             }
+            
+            //prints out results
+            System.out.println("We tied "+ties+" time(s) and you won "+wins+" time(s) and I won DUN! DUN! DUN!.."+loss+" time(s)!");
+            if(loss < wins){
+                System.out.println("You WIN! I LOSE!");
+            }
+            else if(loss > wins){
+                System.out.println("I WIN! You LOSE!");
+            }
+            else
+                System.out.println("We BOTH WIN(tie)!");
             
             //ask user if they want to play again
             System.out.println("Play again? [y/n]");
             playAgain = inputReader.nextLine();
+            
+            //checks for valid user input to prompt
+            while(!playAgain.equals("y") && !playAgain.equals("n")){
+                System.out.println("Please answer y or n only.");
+                System.out.println("Play again? [y/n]");
+                playAgain = inputReader.nextLine();
+            }
             
             //ends game if player says no to playing again
             if(playAgain.equals("n")){
@@ -128,29 +161,34 @@ public class RockPaperScissors {
 //                          User Choice+2 = Program Choice -> User Win
     
     //Function to compare User and Program Choices and determine who wins the round, also prints Program Choice's gesture
-    public static void whoWon(int cOne, int cTwo, String[] gest){
+    public static String whoWon(int cOne, int cTwo, String[] gest){
         //|1:1, 2:2, 3:3| -> User Choice = Program Choice -> Tie
         if(cOne == cTwo){
             System.out.println(gest[cTwo-1] + " It's a Tie!");
+            return "tie";
         }
         //|1:2, 2:3| -> User Choice+1 = Program Choice -> User Loss
         else if(cOne+1 == cTwo){
             System.out.println(gest[cTwo-1] + " You Loss!");
+            return "lost";
         }
         //|2:1, 3:2| ->  User Choice-1 = Program Choice -> User Win
         else if(cOne-1 == cTwo){
             System.out.println(gest[cTwo-1] + " You Win!");
+            return "win";
         }
         //|1:3| User Choice+2 = Program Choice -> User Win
         //Since |2:1, 3:2| ->  User Choice-1 = Program Choice -> User Win has already been executed
         //Can be simplified to User Choice < Program Choice -> User Win
         else if (cOne < cTwo){
             System.out.println(gest[cTwo-1] + " You Win");
+            return "win";
         }
         //|3:1| User Choice-2 = Program Choice -> User Loss
         //Last case scenerio therefore can be simplied to else User Loss
         else{
             System.out.println(gest[cTwo-1] + " You Loss!");
+            return "lost";
         }
     }
 }
